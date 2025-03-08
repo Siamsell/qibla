@@ -67,6 +67,12 @@
             max-width: 100%;
             overflow-x: auto;
         }
+
+        #feedback {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -85,10 +91,7 @@
         </div>
     </div>
     <div class="coordinates" id="qibla-info">Loading Qibla direction...</div>
-    <div class="coordinates">
-        <h2>Prayer Times:</h2>
-        <pre id="prayer-times">Loading prayer times...</pre>
-    </div>
+    <div id="feedback">Rotate your phone to find the Qibla direction.</div>
 
     <script>
         const kaabaCoordinates = {
@@ -111,19 +114,6 @@
                 document.getElementById('city').textContent = `City: ${data.city}`;
 
                 if (data.city) {
-                    // Fetch prayer times
-                    const prayerApiUrl = `https://api.aladhan.com/v1/timingsByAddress/${todayDate}?address=${encodeURIComponent(data.city)},DZ&method=8&tune=2,3,4,5,2,3,4,5,-3`;
-
-                    fetch(prayerApiUrl)
-                        .then(response => response.json())
-                        .then(prayerData => {
-                            document.getElementById('prayer-times').textContent = JSON.stringify(prayerData.data.timings, null, 2);
-                        })
-                        .catch(error => {
-                            console.error('Error fetching prayer times:', error);
-                            document.getElementById('prayer-times').textContent = 'Failed to fetch prayer times';
-                        });
-
                     // Get user coordinates from IP geolocation
                     userCoordinates = {
                         latitude: data.latitude,
@@ -173,6 +163,19 @@
                         const adjustedAngle = (360 - currentHeading + qiblaDirection) % 360;
                         document.getElementById('arrow').style.transform = 
                             `rotate(${adjustedAngle}deg)`;
+
+                        // Provide feedback to the user
+                        const feedbackElement = document.getElementById('feedback');
+                        if (Math.abs(adjustedAngle) < 5) {
+                            feedbackElement.textContent = "You are facing the Qibla! 🎉";
+                            feedbackElement.style.color = "green";
+                        } else if (adjustedAngle > 180) {
+                            feedbackElement.textContent = "Rotate left to face the Qibla.";
+                            feedbackElement.style.color = "red";
+                        } else {
+                            feedbackElement.textContent = "Rotate right to face the Qibla.";
+                            feedbackElement.style.color = "red";
+                        }
                     }
                 }
             });
