@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Compass with Qibla Direction</title>
+  <title>Compass & Qibla UI</title>
   <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
   <link rel="icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
   <link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-b4b4269c16397ad2f0f7a01bcdf513a1994f4c94b8af2f191c09eb0d601762b1.svg" color="#111" />
@@ -32,6 +32,7 @@
       border: 5px solid #444;
       overflow: hidden;
     }
+    /* The disc rotates with the device heading */
     .compass .disc {
       position: absolute;
       top: 20px;
@@ -42,15 +43,21 @@
       height: 260px;
       background-size: 100%;
     }
+    /* The Qibla arrow overlays on top of the disc */
     .compass .arrow {
       position: absolute;
       top: 20px;
       left: 20px;
       z-index: 1000;
-      background-image: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYWFnXzIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iODg1LjM4N3B4IiBoZWlnaHQ9Ijg4NS4zODVweCIgdmlld0JveD0iMCAwIDg4NS4zODcgODg1LjM4NSIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgODg1LjM4NyA4ODUuMzg1IiB4bWw6c3BhY2U9InByZXNlcnZlIj48bGluZSBmaWxsPSJub25lIiBzdHJva2U9IiMxQzc4OTQiIHN0cm9rZS13aWR0aD0iNS42Mjg1IiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHgxPSI0NDYuMTE0IiB5MT0iMzg2LjMxNCIgeDI9IjQ0Ni4xMTQiIHkyPSI0OTguNCIvPjxwb2x5Z29uIGZpbGw9IiMxQzc4OTQiIHBvaW50cz0iNDAzLjY5Niw0NDAuNTk0IDQ0Ni4xMTQsMTI3LjIwNyA0ODguNTMxLDQ0MC41OTQiLz48cG9seWdvbiBmaWxsPSIjMUM3ODk0IiBwb2ludHM9IjQwMy42OTcsNDQwLjM1NyA0NDYuMTE0LDc1OC4wMTUgNDg4LjUzLDQ0MC4zNTciLz48Y2lyY2xlIGZpbGw9IiMxQzc4OTQiIGN4PSI0NDYuMTE1IiBjeT0iNDQ0LjExIiByPSIxMi41MDEiLz48Y2lyY2xlIGZpbGw9IiMxQzc4OTQiIGN4PSI0NDYuMTE0IiBjeT0iNDQ0LjExIiByPSI5Ii8+PGxpbmUgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjQkUxNjIyIiBzdHJva2Utd2lkdGg9IjUuNjI4NSIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiB4MT0iNDQyLjEwNiIgeTE9IjM4Ni4zMTQiIHgyPSI0NDIuMTA1IiB5Mj0iNDk4LjQiLz48cG9seWdvbiBmaWxsPSIjQkUxNjIyIiBwb2ludHM9IjM5OS42ODgsNDQwLjU5NCA0NDIuMTA2LDEyNy4yMDggNDg0LjUyMiw0NDAuNTk0Ii8+PHBvbHlnb24gZmlsbD0iI0Y2RjZGNiIgcG9pbnRzPSIzOTkuNjg4LDQ0MC4zNTYgNDQyLjEwNSw3NTguMDE0IDQ4NC41MjIsNDQwLjM1OCIvPjxjaXJjbGUgZmlsbD0iIzFDNzg5NCIgY3g9IjQ0Mi4xMDYiIGN5PSI0NDQuMTExIiByPSIxMi41MDEiLz48Y2lyY2xlIGZpbGw9IiM0MDhBQTciIGN4PSI0NDIuMTA2IiBjeT0iNDQ0LjExIiByPSI5Ii8+PC9zdmc+);
+      /* Initially no rotation */
+      transform: rotate(0deg);
+      transform-origin: center;
       width: 260px;
       height: 260px;
+      background-image: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYWFnXzIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iODg1LjM4N3B4IiBoZWlnaHQ9Ijg4NS4zODVweCIgdmlld0JveD0iMCAwIDg4NS4zODcgODg1LjM4NSIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgODg1LjM4NyA4ODUuMzg1IiB4bWw6c3BhY2U9InByZXNlcnZlIj48bGluZSBmaWxsPSJub25lIiBzdHJva2U9IiMxQzc4OTQiIHN0cm9rZS13aWR0aD0iNS42Mjg1IiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHgxPSI0NDYuMTE0IiB5MT0iMzg2LjMxNCIgeDI9IjQ0Ni4xMTQiIHkyPSI0OTguNCIvPjxwb2x5Z29uIGZpbGw9IiMxQzc4OTQiIHBvaW50cz0iNDAzLjY5Niw0NDAuNTk0IDQ0Ni4xMTQsMTI3LjIwNyA0ODguNTMxLDQ0MC41OTQiLz48cG9seWdvbiBmaWxsPSIjMUM3ODk0IiBwb2ludHM9IjQwMy42OTcsNDQwLjM1NyA0NDYuMTE0LDc1OC4wMTUgNDg4LjUzLDQ0MC4zNTciLz48Y2lyY2xlIGZpbGw9IiMxQzc4OTQiIGN4PSI0NDYuMTE1IiBjeT0iNDQ0LjExIiByPSIxMi41MDEiLz48Y2lyY2xlIGZpbGw9IiMxQzc4OTQiIGN4PSI0NDYuMTE0IiBjeT0iNDQ0LjExIiByPSI5Ii8+PGxpbmUgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjQkUxNjIyIiBzdHJva2Utd2lkdGg9IjUuNjI4NSIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiB4MT0iNDQyLjEwNiIgeTE9IjM4Ni4zMTQiIHgyPSI0NDIuMTA1IiB5Mj0iNDk4LjQiLz48cG9seWdvbiBmaWxsPSIjQkUxNjIyIiBwb2ludHM9IjM5OS42ODgsNDQwLjU5NCA0NDIuMTA2LDEyNy4yMDggNDg0LjUyMiw0NDAuNTk0Ii8+PHBvbHlnb24gZmlsbD0iI0Y2RjZGNiIgcG9pbnRzPSIzOTkuNjg4LDQ0MC4zNTYgNDQyLjEwNSw3NTguMDE0IDQ4NC41MjIsNDQwLjM1OCIvPjxjaXJjbGUgZmlsbD0iIzFDNzg5NCIgY3g9IjQ0Mi4xMDYiIGN5PSI0NDQuMTExIiByPSIxMi41MDEiLz48Y2lyY2xlIGZpbGw9IiM0MDhBQTciIGN4PSI0NDIuMTA2IiBjeT0iNDQ0LjExIiByPSI5Ii8+PC9zdmc+);
       background-size: 100%;
+      /* Ensure the arrow overlays on top */
+      pointer-events: none;
     }
   </style>
   <script>
@@ -67,18 +74,19 @@
     <div>Beta: <span id="tiltFB"></span></div>
     <div>Gamma: <span id="tiltLR"></span></div>
     <div>Alpha: <span id="direction"></span></div>
+    <div>Qibla Arrow Rotation: <span id="qiblaRotation"></span>°</div>
   </div>
   <div id="notice"></div>
   
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      // Fixed Qibla angle (in degrees) for this example.
+      // Fixed Qibla angle (set to 98° in this example)
       const qiblaAngle = 98;
       
       if (window.DeviceOrientationEvent) {
         document.getElementById('notice').innerHTML = 'Working API detected';
         window.addEventListener('deviceorientation', eventData => {
-          // Get the device orientation values.
+          // Retrieve orientation values
           const tiltLR = eventData.gamma;
           const tiltFB = eventData.beta;
           const dir = eventData.alpha;
@@ -89,20 +97,22 @@
       }
 
       function deviceOrientationHandler(tiltLR, tiltFB, dir) {
-        // Display the sensor values.
+        // Display the sensor data
         document.getElementById('tiltLR').innerHTML = Math.ceil(tiltLR);
         document.getElementById('tiltFB').innerHTML = Math.ceil(tiltFB);
         document.getElementById('direction').innerHTML = Math.ceil(dir);
-
-        // Rotate the disc to show the phone's current heading.
+        
+        // Rotate the disc element according to the device's heading (alpha)
         const compassDisc = document.getElementById('compassDiscImg');
         compassDisc.style.transform = `rotate(${dir}deg)`;
         compassDisc.style.webkitTransform = `rotate(${dir}deg)`;
         compassDisc.style.MozTransform = `rotate(${dir}deg)`;
-
-        // Calculate the relative rotation for the Qibla arrow.
-        // When the phone's heading (dir) equals the Qibla angle, the arrow should point "up" (0° rotation).
+        
+        // Calculate relative rotation for the Qibla arrow:
+        // When the device heading equals the Qibla angle, arrow rotation = 0.
         let arrowRotation = (qiblaAngle - dir + 360) % 360;
+        document.getElementById('qiblaRotation').textContent = arrowRotation.toFixed(2);
+        
         const arrowElem = document.querySelector('.compass .arrow');
         arrowElem.style.transform = `rotate(${arrowRotation}deg)`;
         arrowElem.style.webkitTransform = `rotate(${arrowRotation}deg)`;
